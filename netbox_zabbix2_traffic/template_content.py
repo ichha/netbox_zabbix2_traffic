@@ -1,12 +1,16 @@
 from netbox.plugins import PluginTemplateExtension
 
 class InterfaceTrafficExtension(PluginTemplateExtension):
-    model = 'dcim.interface'
+    models = ['dcim.interface']
 
     def full_width_page(self):
         # Retrieve the interface object being rendered in NetBox
         interface = self.context.get('object')
-        if not interface or not interface.device:
+        
+        # Defensive type checks to guarantee compatibility with all versions and page views
+        if not interface or interface.__class__.__name__ != 'Interface':
+            return ""
+        if not hasattr(interface, 'device') or not interface.device:
             return ""
 
         # Render the custom traffic template, passing device and interface identifiers
