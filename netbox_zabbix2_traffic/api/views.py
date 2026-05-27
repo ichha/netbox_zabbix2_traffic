@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from django.conf import settings
 from netbox_zabbix2_traffic.zabbix_api import ZabbixAPIClient
 import time
@@ -12,6 +13,7 @@ class ZabbixTrafficDataView(APIView):
     """
     Asynchronous proxy API view that fetches live history/trends from Zabbix.
     """
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         device_name = request.query_params.get("device")
         interface_name = request.query_params.get("interface")
