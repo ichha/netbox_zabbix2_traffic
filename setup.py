@@ -9,6 +9,13 @@ setup(
     license="Apache 2.0",
     packages=find_packages(),
     include_package_data=True,
+    package_data={
+        'netbox_zabbix2_traffic': [
+            'templates/**/*.html',
+            'static/**/*.js',
+            'static/**/*.css',
+        ]
+    },
     zip_safe=False,
     install_requires=[
         "requests"
