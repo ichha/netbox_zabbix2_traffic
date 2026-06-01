@@ -29,7 +29,7 @@ class ZabbixAPIClient:
                 data=json.dumps(payload),
                 headers=headers,
                 verify=self.verify_ssl,
-                timeout=12
+                timeout=60
             )
             response.raise_for_status()
             res_data = response.json()
